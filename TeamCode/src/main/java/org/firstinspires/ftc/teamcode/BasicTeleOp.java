@@ -56,6 +56,10 @@ public class BasicTeleOp extends LinearOpMode {
 
         //telemetry adding the status of run time to the screen of the android phones
         telemetry.addData("Status", "Run Time: " + runtime.toString());
+        telemetry.addData("vFL", "vFL: " + vFL);
+        telemetry.addData("VFR", "vFR: " + vFR);
+        telemetry.addData("vBL", "vBl: " + vBL);
+        telemetry.addData("vBR", "vBR: " + vBR);
         telemetry.update();
     }
 
