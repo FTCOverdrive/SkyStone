@@ -39,7 +39,7 @@ public class BasicTeleOp extends LinearOpMode {
         motorFR.setPower(v2);
         //sets direction to reverse
         motorBR.setDirection(DcMotorSimple.Direction.REVERSE);
-        motorBR.setDirection(DcMotorSimple.Direction.REVERSE);
+        motorBL.setDirection(DcMotorSimple.Direction.REVERSE);
         //Important for setting wheel reverse to go backward
         motorBL.setPower(v3);
         motorBR.setPower(v4);
@@ -66,7 +66,7 @@ public class BasicTeleOp extends LinearOpMode {
         //going to test with robot
 //        wait(1);
 //        idle();
-
+    }
 
 
 }
