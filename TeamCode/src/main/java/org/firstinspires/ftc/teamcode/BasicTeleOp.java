@@ -22,10 +22,10 @@ public class BasicTeleOp extends LinearOpMode {
     //variables for trig drive
     private double r;
     private double rightX;
-    private double v1;
-    private double v2;
-    private double v3;
-    private double v4;
+    private double vFL;
+    private double vFR;
+    private double vBL;
+    private double vBR;
 
     public BasicTeleOp() {
     }
@@ -41,15 +41,15 @@ public class BasicTeleOp extends LinearOpMode {
         double robotAngle = Math.atan2(gamepad1.left_stick_y, gamepad1.left_stick_x) - Math.PI / 4;
         rightX = gamepad1.right_stick_x * -1;
 
-        v1 = r * Math.sin(robotAngle) + rightX;
-        v2 = r * Math.cos(robotAngle) - rightX;
-        v3 = r * Math.cos(robotAngle) + rightX;
-        v4 = r * Math.sin(robotAngle) - rightX;
+        vFL = r * Math.sin(robotAngle) + rightX;
+        vFR = r * Math.cos(robotAngle) - rightX;
+        vBL = r * Math.cos(robotAngle) + rightX;
+        vBR = r * Math.sin(robotAngle) - rightX;
 
-        motorFL.setPower(v1); //* -1
-        motorFR.setPower(v2);
-        motorBL.setPower(v3); // *-1
-        motorBR.setPower(v4);
+        motorFL.setPower(vFL); //* -1
+        motorFR.setPower(vFR);
+        motorBL.setPower(vBL); // *-1
+        motorBR.setPower(vBR);
         //end of trig version
 
         //telemetry adding the status of run time to the screen of the android phones
