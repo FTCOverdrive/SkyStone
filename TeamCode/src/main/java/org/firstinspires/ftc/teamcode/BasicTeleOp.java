@@ -46,6 +46,8 @@ public class BasicTeleOp extends LinearOpMode {
         vBL = r * Math.cos(robotAngle) + rightX;
         vBR = r * Math.sin(robotAngle) - rightX;
 
+        System.out.print("   vFl:" + vFL + "   vFR:" + vFR + "      vBl:" + vBL + "      vBR:" + vBR);
+
         motorFL.setPower(vFL); //* -1
         motorFR.setPower(vFR);
         motorBL.setPower(vBL); // *-1
