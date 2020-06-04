@@ -47,25 +47,26 @@ public class BasicTeleOp extends LinearOpMode {
         vBL = (r * Math.cos(robotAngle) + rightX)* velocityConst;
         vBR = (r * Math.sin(robotAngle) - rightX)* velocityConst;
 
-        if(vBR > 1)
+        if(vBR > 1) {
             vBR = 1;
-        else if(vBR < -1)
+        } else if(vBR < -1) {
             vBR = -1;
-
-        if(vBL > 1)
+        }
+        if(vBL > 1) {
             vBL = 1;
-        else if(vBL < -1)
+        } else if(vBL < -1) {
             vBL = -1;
-
-        if(vFR > 1)
+        }
+        if(vFR > 1) {
             vFR = 1;
-        else if(vFR < -1)
+        } else if(vFR < -1) {
             vFR = -1;
-
-        if(vFL > 1)
+        }
+        if(vFL > 1) {
             vFL = 1;
-        else if(vFL < -1)
+        } else if(vFL < -1) {
             vFL = -1;
+        }
 
 
 
