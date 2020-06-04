@@ -23,11 +23,12 @@ public class BasicTeleOp extends LinearOpMode {
     private double v2;
     private double v3;
     private double v4;
+
     public BasicTeleOp() {
     }
 
     public void trigMecRun() {
-        r  = Math.hypot(gamepad1.left_stick_x, gamepad1.left_stick_y);//r is the
+        r = Math.hypot(gamepad1.left_stick_x, gamepad1.left_stick_y);//r is the
         double robotAngle = Math.atan2(gamepad1.left_stick_y, gamepad1.left_stick_x) - Math.PI / 4;
         rightX = gamepad1.right_stick_x;
         v1 = r * Math.cos(robotAngle) + rightX;
@@ -37,7 +38,8 @@ public class BasicTeleOp extends LinearOpMode {
         motorFL.setPower(v1);
         motorFR.setPower(v2);
         //sets direction to reverse
-       // motorBL.setDirection(DcMotorSimple.Direction.REVERSE);
+        motorBR.setDirection(DcMotorSimple.Direction.REVERSE);
+        motorBR.setDirection(DcMotorSimple.Direction.REVERSE);
         //Important for setting wheel reverse to go backward
         motorBL.setPower(v3);
         motorBR.setPower(v4);
@@ -67,4 +69,4 @@ public class BasicTeleOp extends LinearOpMode {
 
 
 
-
+}
