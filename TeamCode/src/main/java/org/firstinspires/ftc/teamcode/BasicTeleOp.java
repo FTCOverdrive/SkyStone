@@ -59,7 +59,7 @@ public class BasicTeleOp extends LinearOpMode {
         //going to test with robot
 //        wait(1);
 //        idle();
-    }
+
     }
 
 
