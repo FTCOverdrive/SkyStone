@@ -26,6 +26,7 @@ public class BasicTeleOp extends LinearOpMode {
     private double vFR;
     private double vBL;
     private double vBR;
+    private double velocityConst;
 
     public BasicTeleOp() {
     }
@@ -41,12 +42,33 @@ public class BasicTeleOp extends LinearOpMode {
         double robotAngle = Math.atan2(gamepad1.left_stick_y, gamepad1.left_stick_x) - Math.PI / 4;
         rightX = gamepad1.right_stick_x * -1;
 
-        vFL = r * Math.sin(robotAngle) + rightX;
-        vFR = r * Math.cos(robotAngle) - rightX;
-        vBL = r * Math.cos(robotAngle) + rightX;
-        vBR = r * Math.sin(robotAngle) - rightX;
+        vFL = (r * Math.sin(robotAngle) + rightX)* velocityConst;
+        vFR = (r * Math.cos(robotAngle) - rightX)* velocityConst;
+        vBL = (r * Math.cos(robotAngle) + rightX)* velocityConst;
+        vBR = (r * Math.sin(robotAngle) - rightX)* velocityConst;
 
-        System.out.print("   vFl:" + vFL + "   vFR:" + vFR + "      vBl:" + vBL + "      vBR:" + vBR);
+        if(vBR > 1)
+            vBR = 1;
+        else if(vBR < -1)
+            vBR = -1;
+
+        if(vBL > 1)
+            vBL = 1;
+        else if(vBL < -1)
+            vBL = -1;
+
+        if(vFR > 1)
+            vFR = 1;
+        else if(vFR < -1)
+            vFR = -1;
+
+        if(vFL > 1)
+            vFL = 1;
+        else if(vFL < -1)
+            vFL = -1;
+
+
+
 
         motorFL.setPower(vFL); //* -1
         motorFR.setPower(vFR);
