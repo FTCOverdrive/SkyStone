@@ -28,6 +28,26 @@ public class BasicTeleOp extends LinearOpMode {
     }
 
     public void trigMecRun() {
+        // start of trig version for mecanum wheel drive
+        //sets direction to reverse
+        //Important for setting wheel reverse to go backward
+        motorFL.setDirection(DcMotorSimple.Direction.REVERSE);
+        motorBL.setDirection(DcMotorSimple.Direction.REVERSE);
+
+        r = Math.hypot(gamepad1.left_stick_x, gamepad1.left_stick_y);//r is the
+        double robotAngle = Math.atan2(gamepad1.left_stick_y, gamepad1.left_stick_x) - Math.PI / 4;
+        rightX = gamepad1.right_stick_x;
+
+        v1 = r * Math.cos(robotAngle) + rightX;
+        v2 = r * Math.sin(robotAngle) - rightX;
+        v3 = r * Math.sin(robotAngle) + rightX;
+        v4 = r * Math.cos(robotAngle) - rightX;
+
+        motorFL.setPower(v1); //* -1
+        motorFR.setPower(v2);
+        motorBL.setPower(v3); // *-1
+        motorBR.setPower(v4);
+        //end of trig version
     }
 
     @Override
@@ -44,25 +64,9 @@ public class BasicTeleOp extends LinearOpMode {
 
         waitForStart();
         while (opModeIsActive()) {
-            // start of trig version for mecanum wheel drive
-            r = Math.hypot(gamepad1.left_stick_x, gamepad1.left_stick_y);//r is the
-            double robotAngle = Math.atan2(gamepad1.left_stick_y, gamepad1.left_stick_x) - Math.PI / 4;
-            rightX = gamepad1.right_stick_x;
-            v1 = r * Math.cos(robotAngle) + rightX;
-            v2 = r * Math.sin(robotAngle) - rightX;
-            v3 = r * Math.sin(robotAngle) + rightX;
-            v4 = r * Math.cos(robotAngle) - rightX;
-            motorFL.setPower(v1 * -1.0);
-            motorFR.setPower(v2);
-            //sets direction to reverse
-            //Important for setting wheel reverse to go backward
-            motorBL.setPower(v3 * -1.0);
-            motorBR.setPower(v4);
-            //end of trig version
+            //method that will run when opmode is active
+            trigMecRun();
         }
-        //going to test with robot
-//        wait(1);
-//        idle();
     }
 
 
