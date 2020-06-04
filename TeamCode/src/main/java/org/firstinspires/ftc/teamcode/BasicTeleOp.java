@@ -4,12 +4,15 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import java.lang.*;
 
 @TeleOp (name = "TeleOp Mec Wheels", group = "Basic")
 public class BasicTeleOp extends LinearOpMode {
     //I declare all the motors over here.
+    private ElapsedTime runtime = new ElapsedTime();
+
     private DcMotor motorFL;
     private DcMotor motorFR;
     private DcMotor motorBL;
@@ -36,18 +39,22 @@ public class BasicTeleOp extends LinearOpMode {
 
         r = Math.hypot(gamepad1.left_stick_x, gamepad1.left_stick_y);//r is the
         double robotAngle = Math.atan2(gamepad1.left_stick_y, gamepad1.left_stick_x) - Math.PI / 4;
-        rightX = gamepad1.right_stick_x;
+        rightX = gamepad1.right_stick_x * -1;
 
-        v1 = r * Math.cos(robotAngle) + rightX;
-        v2 = r * Math.sin(robotAngle) - rightX;
-        v3 = r * Math.sin(robotAngle) + rightX;
-        v4 = r * Math.cos(robotAngle) - rightX;
+        v1 = r * Math.sin(robotAngle) + rightX;
+        v2 = r * Math.cos(robotAngle) - rightX;
+        v3 = r * Math.cos(robotAngle) + rightX;
+        v4 = r * Math.sin(robotAngle) - rightX;
 
         motorFL.setPower(v1); //* -1
         motorFR.setPower(v2);
         motorBL.setPower(v3); // *-1
         motorBR.setPower(v4);
         //end of trig version
+
+        //telemetry adding the status of run time to the screen of the android phones
+        telemetry.addData("Status", "Run Time: " + runtime.toString());
+        telemetry.update();
     }
 
     @Override
@@ -63,6 +70,7 @@ public class BasicTeleOp extends LinearOpMode {
         telemetry.update();
 
         waitForStart();
+        runtime.reset();
         while (opModeIsActive()) {
             //method that will run when opmode is active
             trigMecRun();
