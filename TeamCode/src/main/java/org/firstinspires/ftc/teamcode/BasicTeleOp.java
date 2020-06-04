@@ -3,6 +3,8 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
+
 import java.lang.*;
 
 @TeleOp (name = "TeleOp Mec Wheels", group = "Basic")
@@ -34,6 +36,9 @@ public class BasicTeleOp extends LinearOpMode {
         v4 = r * Math.cos(robotAngle) - rightX;
         motorFL.setPower(v1);
         motorFR.setPower(v2);
+        //sets direction to reverse
+        motorBL.setDirection(DcMotorSimple.Direction.REVERSE);
+        //Important for setting wheel reverse to go backward
         motorBL.setPower(v3);
         motorBR.setPower(v4);
     }
