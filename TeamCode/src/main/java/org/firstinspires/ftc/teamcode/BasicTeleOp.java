@@ -67,9 +67,6 @@ public class BasicTeleOp extends LinearOpMode {
         else if(vFL < -1)
             vFL = -1;
 
-
-
-
         motorFL.setPower(vFL); //* -1
         motorFR.setPower(vFR);
         motorBL.setPower(vBL); // *-1
