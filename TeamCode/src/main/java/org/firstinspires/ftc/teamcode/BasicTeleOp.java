@@ -59,26 +59,26 @@ public class BasicTeleOp extends LinearOpMode {
             //We use the sum of the left stick x and y and get the average to find the speed diagonally
             //finding the average determines speed diagonally
             //EX: the direction of joystick is facing northeast
-            vFL = (gamepad1.left_stick_y + gamepad1.left_stick_x) / 2;
-            vBR = (gamepad1.left_stick_y + gamepad1.left_stick_x) / 2;
+            vFL = Math.hypot(gamepad1.left_stick_y, gamepad1.left_stick_x);
+            vBR = Math.hypot(gamepad1.left_stick_y, gamepad1.left_stick_x);
         } else if(gamepad1.left_stick_x < 0 && gamepad1.left_stick_y > 0){
             //the direction of the joystick is facing northwest
             //will go diagonal in the forward left direction
-            vFR = (gamepad1.left_stick_y + gamepad1.left_stick_x) / 2;
-            vBL = (gamepad1.left_stick_y + gamepad1.left_stick_x) / 2;
+            vFR = Math.hypot(gamepad1.left_stick_y, gamepad1.left_stick_x);
+            vBL = Math.hypot(gamepad1.left_stick_y, gamepad1.left_stick_x);
         } else if(gamepad1.left_stick_x > 0 && gamepad1.left_stick_y < 0){
             //the position of the joystick is southeast
             //the robot will go bottom right diagonal
-            vFL = -(gamepad1.left_stick_y + gamepad1.left_stick_x) / 2;
-            vBR = -(gamepad1.left_stick_y + gamepad1.left_stick_x) / 2;
+            vFL = -Math.hypot(gamepad1.left_stick_y, gamepad1.left_stick_x);
+            vBR = -Math.hypot(gamepad1.left_stick_y, gamepad1.left_stick_x);
         } else if(gamepad1.left_stick_x < 0 && gamepad1.left_stick_y < 0){
             //the position of the joystick is southwest
             //thr robot will go bottom left diagonal
-            vFR = -(gamepad1.left_stick_y + gamepad1.left_stick_x) / 2;
-            vBL = -(gamepad1.left_stick_y + gamepad1.left_stick_x) / 2;
+            vFR = -Math.hypot(gamepad1.left_stick_y, gamepad1.left_stick_x);
+            vBL = -Math.hypot(gamepad1.left_stick_y, gamepad1.left_stick_x);
         }
         // For rotation, we subtract gampad1.right_stick_x from the right side and added the value to the left
-        vFL += gamepad1.right_stick_x;
+        vFL + = gamepad1.right_stick_x;
         vFR -= gamepad1.right_stick_x;
         vBL += gamepad1.right_stick_x;
         vBR -= gamepad1.right_stick_x;
