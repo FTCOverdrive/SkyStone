@@ -43,8 +43,6 @@ public class BasicTeleOp extends LinearOpMode {
 
         //On game controller the joystick all the way up is -1.0 and all the way down is 1.0
         if(Math.abs(gamepad1.left_stick_x) < 0.10) {
-            //The use of the left_stick_y is used in order for the movement up or down, vertical axis
-
             vFL = gamepad1.left_stick_y;
             vFR = gamepad1.left_stick_y;
             vBL = gamepad1.left_stick_y;
