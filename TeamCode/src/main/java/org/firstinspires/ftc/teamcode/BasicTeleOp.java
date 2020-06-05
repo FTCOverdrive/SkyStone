@@ -41,12 +41,14 @@ public class BasicTeleOp extends LinearOpMode {
         //left_stick_y shows the movement across the vertical axis, up or down
         //left_stick_x shows the movement across the horizontal axis, left or right
 
+        //On game controller the jystick all the way up is -1.0 and all the way down is 1.0
         if(Math.abs(gamepad1.left_stick_x) < 0.10) {
             //The use of the left_stick_y is used in order for the movement up or down, vertical axis
-            vFL = gamepad1.left_stick_y;
-            vFR = gamepad1.left_stick_y;
-            vBL = gamepad1.left_stick_y;
-            vBR = gamepad1.left_stick_y;
+            //the values of the left_stick_y are set to 0 as the robot is moving forward and not left and right
+            vFL = gamepad1.left_stick_y; //0
+            vFR = gamepad1.left_stick_y; //0
+            vBL = gamepad1.left_stick_y; //0
+            vBR = gamepad1.left_stick_y; //0
         } else if(Math.abs(gamepad1.left_stick_y) < 0.10) { //This else if statement is used in order to go sideways. The front right and the backLeft(opposite of each other) must go in different directions(move away) in order to go sideways
             //We used the left_stick_x in the game-pad in order for the robot to go in the left or right movement, through the horizontal axis
             vFL = gamepad1.left_stick_x;
@@ -68,6 +70,7 @@ public class BasicTeleOp extends LinearOpMode {
             vFR = -(gamepad1.left_stick_y + gamepad1.left_stick_x) / 2;
             vBL = -(gamepad1.left_stick_y + gamepad1.left_stick_x) / 2;
         }
+        // For rotation, we subtract gampad1.right_stick_x from the right side and added the value to the left
         vFL += gamepad1.right_stick_x;
         vFR -= gamepad1.right_stick_x;
         vBL += gamepad1.right_stick_x;
