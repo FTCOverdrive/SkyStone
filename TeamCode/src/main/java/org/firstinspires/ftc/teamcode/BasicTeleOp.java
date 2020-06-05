@@ -78,7 +78,7 @@ public class BasicTeleOp extends LinearOpMode {
             vBL = -Math.hypot(gamepad1.left_stick_y, gamepad1.left_stick_x);
         }
         // For rotation, we subtract gampad1.right_stick_x from the right side and added the value to the left
-        vFL + = gamepad1.right_stick_x;
+        vFL += gamepad1.right_stick_x;
         vFR -= gamepad1.right_stick_x;
         vBL += gamepad1.right_stick_x;
         vBR -= gamepad1.right_stick_x;
