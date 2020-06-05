@@ -29,22 +29,27 @@ public class BasicTeleOp extends LinearOpMode {
     private double velocityConst;
 
     public BasicTeleOp() {
+
     }
 
     public void trigMecRun() {
+
         // start of trig version for mecanum wheel drive
         //sets direction to reverse
         //Important for setting wheel reverse to go backward
+
         motorFL.setDirection(DcMotorSimple.Direction.REVERSE);
         motorBL.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        r = Math.hypot(gamepad1.left_stick_x, gamepad1.left_stick_y);//r is the
+        r = Math.hypot(gamepad1.left_stick_x, gamepad1.left_stick_y);
         double robotAngle = Math.atan2(gamepad1.left_stick_y, gamepad1.left_stick_x) - Math.PI / 4;
+
         if(gamepad1.left_stick_y > 0.8) {
             rightX = gamepad1.right_stick_x * -0.5;
         } else {
             rightX = gamepad1.right_stick_x * -0.25;
         }
+
         velocityConst = 1.414213565;
         vFL = (r * Math.sin(robotAngle) + rightX)* velocityConst;
         vFR = (r * Math.cos(robotAngle) - rightX)* velocityConst;
