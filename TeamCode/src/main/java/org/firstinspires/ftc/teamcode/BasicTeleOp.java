@@ -44,11 +44,11 @@ public class BasicTeleOp extends LinearOpMode {
         //On game controller the joystick all the way up is -1.0 and all the way down is 1.0
         if(Math.abs(gamepad1.left_stick_x) < 0.10) {
             //The use of the left_stick_y is used in order for the movement up or down, vertical axis
-            //the values of the left_stick_y are set to 0 as the robot is moving left and right and not forward
-            vFL = gamepad1.left_stick_y; //0
-            vFR = gamepad1.left_stick_y; //0
-            vBL = gamepad1.left_stick_y; //0
-            vBR = gamepad1.left_stick_y; //0
+
+            vFL = gamepad1.left_stick_y;
+            vFR = gamepad1.left_stick_y;
+            vBL = gamepad1.left_stick_y;
+            vBR = gamepad1.left_stick_y;
         } else if(Math.abs(gamepad1.left_stick_y) < 0.10) { //This else if statement is used in order to go sideways. The front right and the backLeft(opposite of each other) must go in different directions(move away) in order to go sideways
             //We used the left_stick_x in the game-pad in order for the robot to go in the left or right movement, through the horizontal axis
             vFL = gamepad1.left_stick_x;
