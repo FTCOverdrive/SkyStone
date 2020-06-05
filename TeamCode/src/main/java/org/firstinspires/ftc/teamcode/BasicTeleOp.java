@@ -42,13 +42,15 @@ public class BasicTeleOp extends LinearOpMode {
         //left_stick_x shows the movement across the horizontal axis, left or right
 
         //On game controller the joystick all the way up is -1.0 and all the way down is 1.0
-        if(Math.abs(gamepad1.left_stick_x) < 0.10) {
-            vFL = gamepad1.left_stick_y;
-            vFR = gamepad1.left_stick_y;
-            vBL = gamepad1.left_stick_y;
-            vBR = gamepad1.left_stick_y;
+        if(Math.abs(gamepad1.left_stick_x) < 0.10) { //this if statement is saying "if the stick_x is closer to zero(middle) then use the left stuck y value to go forward"
+            //purpose of the 0.10 is to make sure for thr slightest touch is accomodated in order for the robot to go forward and not left and right
+            vFL = gamepad1.left_stick_y; // will go forward
+            vFR = gamepad1.left_stick_y; //will go forward
+            vBL = gamepad1.left_stick_y; //will go forward
+            vBR = gamepad1.left_stick_y; //will go forward
         } else if(Math.abs(gamepad1.left_stick_y) < 0.10) { //This else if statement is used in order to go sideways. The front right and the backLeft(opposite of each other) must go in different directions(move away) in order to go sideways
             //We used the left_stick_x in the game-pad in order for the robot to go in the left or right movement, through the horizontal axis
+            //if hte joystick is going to the right or the left it will set the motors to that value
             vFL = gamepad1.left_stick_x;
             vFR = gamepad1.left_stick_x * -1;
             vBL = gamepad1.left_stick_x * -1;
@@ -56,15 +58,22 @@ public class BasicTeleOp extends LinearOpMode {
         } else if(gamepad1.left_stick_x > 0 && gamepad1.left_stick_y > 0){ //The diagonal movement can be shown here with two wheels moving. The front left and the back right.
             //We use the sum of the left stick x and y and get the average to find the speed diagonally
             //finding the average determines speed diagonally
+            //EX: the direction of joystick is facing northeast
             vFL = (gamepad1.left_stick_y + gamepad1.left_stick_x) / 2;
             vBR = (gamepad1.left_stick_y + gamepad1.left_stick_x) / 2;
         } else if(gamepad1.left_stick_x < 0 && gamepad1.left_stick_y > 0){
+            //the direction of the joystick is facing northwest
+            //will go diagonal in the forward left direction
             vFR = (gamepad1.left_stick_y + gamepad1.left_stick_x) / 2;
             vBL = (gamepad1.left_stick_y + gamepad1.left_stick_x) / 2;
         } else if(gamepad1.left_stick_x > 0 && gamepad1.left_stick_y < 0){
+            //the position of the joystick is southeast
+            //the robot will go bottom right diagonal
             vFL = -(gamepad1.left_stick_y + gamepad1.left_stick_x) / 2;
             vBR = -(gamepad1.left_stick_y + gamepad1.left_stick_x) / 2;
         } else if(gamepad1.left_stick_x < 0 && gamepad1.left_stick_y < 0){
+            //the position of the joystick is southwest
+            //thr robot will go bottom left diagonal
             vFR = -(gamepad1.left_stick_y + gamepad1.left_stick_x) / 2;
             vBL = -(gamepad1.left_stick_y + gamepad1.left_stick_x) / 2;
         }
