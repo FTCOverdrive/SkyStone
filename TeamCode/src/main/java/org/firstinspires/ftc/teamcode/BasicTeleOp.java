@@ -143,8 +143,7 @@ public class BasicTeleOp extends LinearOpMode {
         runtime.reset();
         while (opModeIsActive()) {
             //method that will run when opmode is active
-//            trigMecRun();
-            vectorMecRun();
+            trigMecRun();
         }
     }
 
