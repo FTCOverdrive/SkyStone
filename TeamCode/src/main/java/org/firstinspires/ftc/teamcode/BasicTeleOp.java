@@ -17,8 +17,7 @@ public class BasicTeleOp extends LinearOpMode {
     private DcMotor motorFR;
     private DcMotor motorBL;
     private DcMotor motorBR;
-    private final int maxMotorPower = 70;
-    private final int motorReduction = 100 - maxMotorPower;
+
     //variables for trig drive
     private double r;
     private double rightX;
@@ -33,20 +32,30 @@ public class BasicTeleOp extends LinearOpMode {
     }
     public void vectorMecRun() {
 
+        //sets the direction of the front left mecanum wheel and the back left mecanum wheel in reverse
+
         motorFL.setDirection(DcMotorSimple.Direction.REVERSE);
         motorBL.setDirection(DcMotorSimple.Direction.REVERSE);
 
+        //The first if statement uses Math.abs is for the forward and backward movement with the direction of left_stick_y. If the joystick moves up, it will move in the forward direction
+        //left_stick_y shows the movement across the vertical axis, up or down
+        //left_stick_x shows the movement across the horizontal axis, left or right
+
         if(Math.abs(gamepad1.left_stick_x) < 0.10) {
+            //The use of the left_stick_y is used in order for the movement up or down, vertical axis
             vFL = gamepad1.left_stick_y;
             vFR = gamepad1.left_stick_y;
             vBL = gamepad1.left_stick_y;
             vBR = gamepad1.left_stick_y;
-        } else if(Math.abs(gamepad1.left_stick_y) < 0.10) {
+        } else if(Math.abs(gamepad1.left_stick_y) < 0.10) { //This else if statement is used in order to go sideways. The front right and the backLeft(opposite of each other) must go in different directions(move away) in order to go sideways
+            //We used the left_stick_x in the game-pad in order for the robot to go in the left or right movement, through the horizontal axis
             vFL = gamepad1.left_stick_x;
             vFR = gamepad1.left_stick_x * -1;
             vBL = gamepad1.left_stick_x * -1;
             vBR = gamepad1.left_stick_x;
-        } else if(gamepad1.left_stick_x > 0 && gamepad1.left_stick_y > 0){
+        } else if(gamepad1.left_stick_x > 0 && gamepad1.left_stick_y > 0){ //The diagonal movement can be shown here with two wheels moving. The front left and the back right.
+            //We use the sum of the left stick x and y and get the average to find the speed diagonally
+            //finding the average determines speed diagonally
             vFL = (gamepad1.left_stick_y + gamepad1.left_stick_x) / 2;
             vBR = (gamepad1.left_stick_y + gamepad1.left_stick_x) / 2;
         } else if(gamepad1.left_stick_x < 0 && gamepad1.left_stick_y > 0){
@@ -64,6 +73,7 @@ public class BasicTeleOp extends LinearOpMode {
         vBL += gamepad1.right_stick_x;
         vBR -= gamepad1.right_stick_x;
 
+        //uses if statements to make sure that the motors don't burn out and sets it equal to 1 if it is over 1 or equal to -1 if it is below -1
         if(vBR > 1) {
             vBR = 1;
         }
@@ -91,9 +101,9 @@ public class BasicTeleOp extends LinearOpMode {
         else if(vFL < -1) {
             vFL = -1;
         }
-        motorFL.setPower(vFL); //* -1
+        motorFL.setPower(vFL);
         motorFR.setPower(vFR);
-        motorBL.setPower(vBL); // *-1
+        motorBL.setPower(vBL);
         motorBR.setPower(vBR);
         //telemetry adding the status of run time to the screen of the android phones
         telemetry.addData("Status", "Run Time: " + runtime.toString());
@@ -103,6 +113,32 @@ public class BasicTeleOp extends LinearOpMode {
         telemetry.addData("vBR", "vBR: " + vBR);
         telemetry.update();
     }
+
+
+    @Override
+    public void runOpMode() throws InterruptedException {
+        //I initialize all the motors over here before the teleOp code that is initiated after the start button is pressed.
+        //Important for setting wheel reverse to go backward
+
+
+        motorFL = hardwareMap.dcMotor.get("motorFL");
+        motorFR = hardwareMap.dcMotor.get("motorFR");
+        motorBL = hardwareMap.dcMotor.get("motorBL");
+        motorBR = hardwareMap.dcMotor.get("motorBR");
+
+        telemetry.addLine("Robot is ready");
+        telemetry.update();
+
+        waitForStart();
+        runtime.reset();
+        while (opModeIsActive()) {
+            //method that will run when opmode is active
+//            trigMecRun();
+            vectorMecRun();
+        }
+    }
+
+    //commented out on the opmode while loop in the runopmode function
     public void trigMecRun() {
         // start of trig version for mecanum wheel drive
 
@@ -166,29 +202,4 @@ public class BasicTeleOp extends LinearOpMode {
         telemetry.addData("vBR", "vBR: " + vBR);
         telemetry.update();
     }
-
-    @Override
-    public void runOpMode() throws InterruptedException {
-        //I initialize all the motors over here before the teleOp code that is initiated after the start button is pressed.
-        //Important for setting wheel reverse to go backward
-
-
-        motorFL = hardwareMap.dcMotor.get("motorFL");
-        motorFR = hardwareMap.dcMotor.get("motorFR");
-        motorBL = hardwareMap.dcMotor.get("motorBL");
-        motorBR = hardwareMap.dcMotor.get("motorBR");
-
-        telemetry.addLine("Robot is ready");
-        telemetry.update();
-
-        waitForStart();
-        runtime.reset();
-        while (opModeIsActive()) {
-            //method that will run when opmode is active
-//            trigMecRun();
-            vectorMecRun();
-        }
-    }
-
-
 }
