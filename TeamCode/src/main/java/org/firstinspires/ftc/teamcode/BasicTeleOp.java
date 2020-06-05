@@ -41,10 +41,10 @@ public class BasicTeleOp extends LinearOpMode {
         //left_stick_y shows the movement across the vertical axis, up or down
         //left_stick_x shows the movement across the horizontal axis, left or right
 
-        //On game controller the jystick all the way up is -1.0 and all the way down is 1.0
+        //On game controller the joystick all the way up is -1.0 and all the way down is 1.0
         if(Math.abs(gamepad1.left_stick_x) < 0.10) {
             //The use of the left_stick_y is used in order for the movement up or down, vertical axis
-            //the values of the left_stick_y are set to 0 as the robot is moving forward and not left and right
+            //the values of the left_stick_y are set to 0 as the robot is moving left and right and not forward
             vFL = gamepad1.left_stick_y; //0
             vFR = gamepad1.left_stick_y; //0
             vBL = gamepad1.left_stick_y; //0
