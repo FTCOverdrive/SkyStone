@@ -50,7 +50,7 @@ public class BasicTeleOp extends LinearOpMode {
             vBR = gamepad1.left_stick_y; //will go forward/backwards
         } else if(Math.abs(gamepad1.left_stick_y) < 0.10) { //This else if statement is used in order to go sideways. The front right and the backLeft(opposite of each other) must go in different directions(move away) in order to go sideways
             //We used the left_stick_x in the game-pad in order for the robot to go in the left or right movement, through the horizontal axis
-            //if hte joystick is going to the right or the left it will set the motors to that value
+            //if the joystick is going to the right or the left it will set the motors to that value
             vFL = gamepad1.left_stick_x;
             vFR = gamepad1.left_stick_x * -1;
             vBL = gamepad1.left_stick_x * -1;
@@ -73,17 +73,21 @@ public class BasicTeleOp extends LinearOpMode {
             vBR = -(gamepad1.left_stick_y + gamepad1.left_stick_x) / 2;
         } else if(gamepad1.left_stick_x < 0 && gamepad1.left_stick_y < 0){
             //the position of the joystick is southwest
-            //thr robot will go bottom left diagonal
+            //the robot will go bottom left diagonal
             vFR = -(gamepad1.left_stick_y + gamepad1.left_stick_x) / 2;
             vBL = -(gamepad1.left_stick_y + gamepad1.left_stick_x) / 2;
         }
-        // For rotation, we subtract gampad1.right_stick_x from the right side and added the value to the left
+
+
+        // For rotation, we subtract gamepad1.right_stick_x from the right side and added the value to the left
+
         vFL += gamepad1.right_stick_x;
         vFR -= gamepad1.right_stick_x;
         vBL += gamepad1.right_stick_x;
         vBR -= gamepad1.right_stick_x;
 
         //uses if statements to make sure that the motors don't burn out and sets it equal to 1 if it is over 1 or equal to -1 if it is below -1
+
         if(vBR > 1) {
             vBR = 1;
         }
