@@ -31,12 +31,80 @@ public class BasicTeleOp extends LinearOpMode {
     public BasicTeleOp() {
 
     }
+    public void vectorMecRun() {
 
+        motorFL.setDirection(DcMotorSimple.Direction.REVERSE);
+        motorBL.setDirection(DcMotorSimple.Direction.REVERSE);
+
+        if(Math.abs(gamepad1.left_stick_x) < 0.10) {
+            vFL = gamepad1.left_stick_y;
+            vFR = gamepad1.left_stick_y;
+            vBL = gamepad1.left_stick_y;
+            vBR = gamepad1.left_stick_y;
+        } else if(Math.abs(gamepad1.left_stick_y) < 0.10) {
+            vFL = gamepad1.left_stick_x;
+            vFR = gamepad1.left_stick_x * -1;
+            vBL = gamepad1.left_stick_x * -1;
+            vBR = gamepad1.left_stick_x;
+        } else if(gamepad1.left_stick_x > 0 && gamepad1.left_stick_y > 0){
+            vFL = (gamepad1.left_stick_y + gamepad1.left_stick_x) / 2;
+            vBR = (gamepad1.left_stick_y + gamepad1.left_stick_x) / 2;
+        } else if(gamepad1.left_stick_x < 0 && gamepad1.left_stick_y > 0){
+            vFR = (gamepad1.left_stick_y + gamepad1.left_stick_x) / 2;
+            vBL = (gamepad1.left_stick_y + gamepad1.left_stick_x) / 2;
+        } else if(gamepad1.left_stick_x > 0 && gamepad1.left_stick_y < 0){
+            vFL = -(gamepad1.left_stick_y + gamepad1.left_stick_x) / 2;
+            vBR = -(gamepad1.left_stick_y + gamepad1.left_stick_x) / 2;
+        } else if(gamepad1.left_stick_x < 0 && gamepad1.left_stick_y < 0){
+            vFR = -(gamepad1.left_stick_y + gamepad1.left_stick_x) / 2;
+            vBL = -(gamepad1.left_stick_y + gamepad1.left_stick_x) / 2;
+        }
+        vFL += gamepad1.right_stick_x;
+        vFR -= gamepad1.right_stick_x;
+        vBL += gamepad1.right_stick_x;
+        vBR -= gamepad1.right_stick_x;
+
+        if(vBR > 1) {
+            vBR = 1;
+        }
+        else if(vBR < -1) {
+            vBR = -1;
+        }
+
+        if(vBL > 1) {
+            vBL = 1;
+        }
+        else if(vBL < -1) {
+            vBL = -1;
+        }
+
+        if(vFR > 1) {
+            vFR = 1;
+        }
+        else if(vFR < -1) {
+            vFR = -1;
+        }
+
+        if(vFL > 1) {
+            vFL = 1;
+        }
+        else if(vFL < -1) {
+            vFL = -1;
+        }
+        motorFL.setPower(vFL); //* -1
+        motorFR.setPower(vFR);
+        motorBL.setPower(vBL); // *-1
+        motorBR.setPower(vBR);
+        //telemetry adding the status of run time to the screen of the android phones
+        telemetry.addData("Status", "Run Time: " + runtime.toString());
+        telemetry.addData("vFL", "vFL: " + vFL);
+        telemetry.addData("VFR", "vFR: " + vFR);
+        telemetry.addData("vBL", "vBl: " + vBL);
+        telemetry.addData("vBR", "vBR: " + vBR);
+        telemetry.update();
+    }
     public void trigMecRun() {
-
         // start of trig version for mecanum wheel drive
-        //sets direction to reverse
-        //Important for setting wheel reverse to go backward
 
         motorFL.setDirection(DcMotorSimple.Direction.REVERSE);
         motorBL.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -102,6 +170,8 @@ public class BasicTeleOp extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         //I initialize all the motors over here before the teleOp code that is initiated after the start button is pressed.
+        //Important for setting wheel reverse to go backward
+
 
         motorFL = hardwareMap.dcMotor.get("motorFL");
         motorFR = hardwareMap.dcMotor.get("motorFR");
@@ -115,7 +185,8 @@ public class BasicTeleOp extends LinearOpMode {
         runtime.reset();
         while (opModeIsActive()) {
             //method that will run when opmode is active
-            trigMecRun();
+//            trigMecRun();
+            vectorMecRun();
         }
     }
 
