@@ -37,17 +37,17 @@ public class BasicTeleOp extends LinearOpMode {
         motorFL.setDirection(DcMotorSimple.Direction.REVERSE);
         motorBL.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        //The first if statement uses Math.abs is for the forward and backward movement with the direction of left_stick_y. If the joystick moves up, it will move in the forward direction
+        //The first if statement uses Math.abs is for the forward and backward movement with the direction of left_stick_y. If the joystick moves up, it will move in the forward direction and vise versa
         //left_stick_y shows the movement across the vertical axis, up or down
         //left_stick_x shows the movement across the horizontal axis, left or right
 
         //On game controller the joystick all the way up is -1.0 and all the way down is 1.0
-        if(Math.abs(gamepad1.left_stick_x) < 0.10) { //this if statement is saying "if the stick_x is closer to zero(middle) then use the left stuck y value to go forward"
-            //purpose of the 0.10 is to make sure for thr slightest touch is accomodated in order for the robot to go forward and not left and right
-            vFL = gamepad1.left_stick_y; // will go forward
-            vFR = gamepad1.left_stick_y; //will go forward
-            vBL = gamepad1.left_stick_y; //will go forward
-            vBR = gamepad1.left_stick_y; //will go forward
+        if(Math.abs(gamepad1.left_stick_x) < 0.10) { //this if statement is saying "if the stick_x is closer to zero(middle) then use the left stick y value to go forward"
+            //purpose of the 0.10 is to make sure for the slightest touch is accommodated in order for the robot to go forward and not left and right
+            vFL = gamepad1.left_stick_y; //will go forward/backwards
+            vFR = gamepad1.left_stick_y; //will go forward/backwards
+            vBL = gamepad1.left_stick_y; //will go forward/backwards
+            vBR = gamepad1.left_stick_y; //will go forward/backwards
         } else if(Math.abs(gamepad1.left_stick_y) < 0.10) { //This else if statement is used in order to go sideways. The front right and the backLeft(opposite of each other) must go in different directions(move away) in order to go sideways
             //We used the left_stick_x in the game-pad in order for the robot to go in the left or right movement, through the horizontal axis
             //if hte joystick is going to the right or the left it will set the motors to that value
