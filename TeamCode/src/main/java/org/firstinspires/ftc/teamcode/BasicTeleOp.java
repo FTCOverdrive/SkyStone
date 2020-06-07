@@ -170,7 +170,7 @@ public class BasicTeleOp extends LinearOpMode {
         vBL = (r * Math.cos(robotAngle) + rightX)* velocityConst;
         vBR = (r * Math.sin(robotAngle) - rightX)* velocityConst;
 
-        if(Math.abs (gamepad1.left_stick_y)< 0.05 && gamepad1.left_stick_x > 0){
+        if(Math.abs(gamepad1.left_stick_y)< 0.1 && gamepad1.left_stick_x > 0){
             rightX -= strafeCounter;
         }
         else if(Math.abs(gamepad1.left_stick_y) < 0.05 && gamepad1.left_stick_x < 0){
