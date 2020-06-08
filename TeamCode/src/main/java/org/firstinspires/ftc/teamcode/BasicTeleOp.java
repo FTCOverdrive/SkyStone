@@ -31,6 +31,87 @@ public class BasicTeleOp extends LinearOpMode {
     public BasicTeleOp() {
 
     }
+
+    //uses if statements to make sure that the motors don't burn out and sets it equal to 1 if it is over 1 or equal to -1 if it is below -1
+    public void restrictPower(double powerNum) {
+        if(vBR > powerNum) {
+            vBR = powerNum;
+        }
+        else if(vBR < -powerNum) {
+            vBR = -powerNum;
+        }
+
+        if(vBL > powerNum) {
+            vBL = 1;
+        }
+        else if(vBL < -powerNum) {
+            vBL = -powerNum;
+        }
+
+        if(vFR > powerNum) {
+            vFR = powerNum;
+        }
+        else if(vFR < -powerNum) {
+            vFR = -powerNum;
+        }
+
+        if(vFL > powerNum) {
+            vFL = powerNum;
+        }
+        else if(vFL < -powerNum) {
+            vFL = -powerNum;
+        }
+
+    }
+
+    //commented out on the opmode while loop in the runopmode function
+    public void trigMecRun() {
+        // start of trig version for mecanum wheel drive
+
+        motorFL.setDirection(DcMotorSimple.Direction.REVERSE);
+        motorBL.setDirection(DcMotorSimple.Direction.REVERSE);
+
+        r = Math.hypot(gamepad1.left_stick_x, gamepad1.left_stick_y);
+        double robotAngle = Math.atan2(gamepad1.left_stick_y, gamepad1.left_stick_x) - Math.PI / 4;
+
+        if(gamepad1.left_stick_y > 0.8) {
+            rightX = gamepad1.right_stick_x * -0.5;
+        } else {
+            rightX = gamepad1.right_stick_x * -0.25;
+        }
+
+        //used to counteract the rotation from strafing
+        if(Math.abs(gamepad1.left_stick_y) < 0.1 && gamepad1.left_stick_x > 0){
+            rightX -= strafeCounter;
+        }
+        else if(Math.abs(gamepad1.left_stick_y) < 0.1 && gamepad1.left_stick_x < 0){
+            rightX += strafeCounter;
+        }
+
+        //sets the power for each of the motor variables
+        velocityConst = 1.414213565;
+        vFL = (r * Math.sin(robotAngle) + rightX)* velocityConst;
+        vFR = (r * Math.cos(robotAngle) - rightX)* velocityConst;
+        vBL = (r * Math.cos(robotAngle) + rightX)* velocityConst;
+        vBR = (r * Math.sin(robotAngle) - rightX)* velocityConst;
+
+        restrictPower(1);
+
+        motorFL.setPower(vFL); //* -1
+        motorFR.setPower(vFR);
+        motorBL.setPower(vBL); // *-1
+        motorBR.setPower(vBR);
+        //end of trig version
+
+        //telemetry adding the status of run time to the screen of the android phones
+        telemetry.addData("Status", "Run Time: " + runtime.toString());
+        telemetry.addData("vFL", "vFL: " + vFL);
+        telemetry.addData("VFR", "vFR: " + vFR);
+        telemetry.addData("vBL", "vBl: " + vBL);
+        telemetry.addData("vBR", "vBR: " + vBR);
+        telemetry.update();
+    }
+
     public void vectorMecRun() {
 
         //sets the direction of the front left mecanum wheel and the back left mecanum wheel in reverse
@@ -85,33 +166,8 @@ public class BasicTeleOp extends LinearOpMode {
         vBR -= gamepad1.right_stick_x;
 
         //uses if statements to make sure that the motors don't burn out and sets it equal to 1 if it is over 1 or equal to -1 if it is below -1
-        if(vBR > 1) {
-            vBR = 1;
-        }
-        else if(vBR < -1) {
-            vBR = -1;
-        }
+        restrictPower(1);
 
-        if(vBL > 1) {
-            vBL = 1;
-        }
-        else if(vBL < -1) {
-            vBL = -1;
-        }
-
-        if(vFR > 1) {
-            vFR = 1;
-        }
-        else if(vFR < -1) {
-            vFR = -1;
-        }
-
-        if(vFL > 1) {
-            vFL = 1;
-        }
-        else if(vFL < -1) {
-            vFL = -1;
-        }
         motorFL.setPower(vFL);
         motorFR.setPower(vFR);
         motorBL.setPower(vBL);
@@ -148,79 +204,4 @@ public class BasicTeleOp extends LinearOpMode {
         }
     }
 
-    //commented out on the opmode while loop in the runopmode function
-    public void trigMecRun() {
-        // start of trig version for mecanum wheel drive
-
-        motorFL.setDirection(DcMotorSimple.Direction.REVERSE);
-        motorBL.setDirection(DcMotorSimple.Direction.REVERSE);
-
-        r = Math.hypot(gamepad1.left_stick_x, gamepad1.left_stick_y);
-        double robotAngle = Math.atan2(gamepad1.left_stick_y, gamepad1.left_stick_x) - Math.PI / 4;
-
-        if(gamepad1.left_stick_y > 0.8) {
-            rightX = gamepad1.right_stick_x * -0.5;
-        } else {
-            rightX = gamepad1.right_stick_x * -0.25;
-        }
-
-        //used to counteract the rotation from strafing
-        if(Math.abs(gamepad1.left_stick_y) < 0.1 && gamepad1.left_stick_x > 0){
-            rightX -= strafeCounter;
-        }
-        else if(Math.abs(gamepad1.left_stick_y) < 0.1 && gamepad1.left_stick_x < 0){
-            rightX += strafeCounter;
-        }
-
-        //sets the power for each of the motor variables
-        velocityConst = 1.414213565;
-        vFL = (r * Math.sin(robotAngle) + rightX)* velocityConst;
-        vFR = (r * Math.cos(robotAngle) - rightX)* velocityConst;
-        vBL = (r * Math.cos(robotAngle) + rightX)* velocityConst;
-        vBR = (r * Math.sin(robotAngle) - rightX)* velocityConst;
-
-
-
-        if(vBR > 1) {
-            vBR = 1;
-        }
-        else if(vBR < -1) {
-            vBR = -1;
-        }
-
-        if(vBL > 1) {
-            vBL = 1;
-        }
-        else if(vBL < -1) {
-            vBL = -1;
-        }
-
-        if(vFR > 1) {
-            vFR = 1;
-        }
-        else if(vFR < -1) {
-            vFR = -1;
-        }
-
-        if(vFL > 1) {
-            vFL = 1;
-        }
-        else if(vFL < -1) {
-            vFL = -1;
-        }
-
-        motorFL.setPower(vFL); //* -1
-        motorFR.setPower(vFR);
-        motorBL.setPower(vBL); // *-1
-        motorBR.setPower(vBR);
-        //end of trig version
-
-        //telemetry adding the status of run time to the screen of the android phones
-        telemetry.addData("Status", "Run Time: " + runtime.toString());
-        telemetry.addData("vFL", "vFL: " + vFL);
-        telemetry.addData("VFR", "vFR: " + vFR);
-        telemetry.addData("vBL", "vBl: " + vBL);
-        telemetry.addData("vBR", "vBR: " + vBR);
-        telemetry.update();
-    }
 }
