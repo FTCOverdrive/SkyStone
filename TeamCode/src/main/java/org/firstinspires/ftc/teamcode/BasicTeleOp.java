@@ -164,18 +164,22 @@ public class BasicTeleOp extends LinearOpMode {
             rightX = gamepad1.right_stick_x * -0.25;
         }
 
+        //used to counteract the rotation from strafing
+        if(Math.abs(gamepad1.left_stick_y) < 0.1 && gamepad1.left_stick_x > 0){
+            rightX -= strafeCounter;
+        }
+        else if(Math.abs(gamepad1.left_stick_y) < 0.1 && gamepad1.left_stick_x < 0){
+            rightX += strafeCounter;
+        }
+
+        //sets the power for each of the motor variables
         velocityConst = 1.414213565;
         vFL = (r * Math.sin(robotAngle) + rightX)* velocityConst;
         vFR = (r * Math.cos(robotAngle) - rightX)* velocityConst;
         vBL = (r * Math.cos(robotAngle) + rightX)* velocityConst;
         vBR = (r * Math.sin(robotAngle) - rightX)* velocityConst;
 
-        if(Math.abs(gamepad1.left_stick_y)< 0.1 && gamepad1.left_stick_x > 0){
-            rightX -= strafeCounter;
-        }
-        else if(Math.abs(gamepad1.left_stick_y) < 0.05 && gamepad1.left_stick_x < 0){
-            rightX += strafeCounter;
-        }
+
 
         if(vBR > 1) {
             vBR = 1;
