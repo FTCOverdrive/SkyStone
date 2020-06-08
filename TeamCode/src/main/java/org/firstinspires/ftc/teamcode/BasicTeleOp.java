@@ -26,7 +26,7 @@ public class BasicTeleOp extends LinearOpMode {
     private double vBL;
     private double vBR;
     private double velocityConst;
-    private double strafeCounter = 0.3;
+    private double strafeCounter = 0;
 
     public BasicTeleOp() {
 
@@ -42,7 +42,7 @@ public class BasicTeleOp extends LinearOpMode {
         }
 
         if(vBL > powerNum) {
-            vBL = 1;
+            vBL = powerNum;
         }
         else if(vBL < -powerNum) {
             vBL = -powerNum;
@@ -74,6 +74,7 @@ public class BasicTeleOp extends LinearOpMode {
         r = Math.hypot(gamepad1.left_stick_x, gamepad1.left_stick_y);
         double robotAngle = Math.atan2(gamepad1.left_stick_y, gamepad1.left_stick_x) - Math.PI / 4;
 
+        //test code
         if(gamepad1.left_stick_y > 0.8) {
             rightX = gamepad1.right_stick_x * -0.5;
         } else {
@@ -82,10 +83,10 @@ public class BasicTeleOp extends LinearOpMode {
 
         //used to counteract the rotation from strafing
         if(Math.abs(gamepad1.left_stick_y) < 0.1 && gamepad1.left_stick_x > 0){
-            rightX -= strafeCounter;
+            rightX -= strafeCounter * Math.abs(gamepad1.left_stick_x);
         }
         else if(Math.abs(gamepad1.left_stick_y) < 0.1 && gamepad1.left_stick_x < 0){
-            rightX += strafeCounter;
+            rightX += strafeCounter * Math.abs(gamepad1.left_stick_x);
         }
 
         //sets the power for each of the motor variables
@@ -109,6 +110,7 @@ public class BasicTeleOp extends LinearOpMode {
         telemetry.addData("VFR", "vFR: " + vFR);
         telemetry.addData("vBL", "vBl: " + vBL);
         telemetry.addData("vBR", "vBR: " + vBR);
+        telemetry.addData("Strafe Counter", "SC: " + strafeCounter);
         telemetry.update();
     }
 
