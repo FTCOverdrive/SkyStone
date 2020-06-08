@@ -157,11 +157,11 @@ public class BasicTeleOp extends LinearOpMode {
             vBR = -Math.hypot(gamepad1.left_stick_y, gamepad1.left_stick_x);
         } else if(gamepad1.left_stick_x < 0 && gamepad1.left_stick_y < 0){
             //the position of the joystick is southwest
-            //the robot will go bottom left diagonal
+            //thr robot will go bottom left diagonal
             vFR = -Math.hypot(gamepad1.left_stick_y, gamepad1.left_stick_x);
             vBL = -Math.hypot(gamepad1.left_stick_y, gamepad1.left_stick_x);
         }
-        // For rotation, we subtract gamepad1.right_stick_x from the right side and added the value to the left
+        // For rotation, we subtract gampad1.right_stick_x from the right side and added the value to the left
         vFL += gamepad1.right_stick_x;
         vFR -= gamepad1.right_stick_x;
         vBL += gamepad1.right_stick_x;
