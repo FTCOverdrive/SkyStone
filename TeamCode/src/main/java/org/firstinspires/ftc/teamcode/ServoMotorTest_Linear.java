@@ -78,7 +78,7 @@ public class ServoMotorTest_Linear extends LinearOpMode {
         waitForStart();
         runtime.reset();
 
-        double servoPosition = 0.5;
+        double servoPosition = 0;
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
 
@@ -86,10 +86,10 @@ public class ServoMotorTest_Linear extends LinearOpMode {
             double motorPower = -gamepad1.left_stick_y;
 
             if(gamepad1.dpad_up){
-                servoPosition = 1;
+                servoPosition = 0.5;
             }
             if(gamepad2.dpad_down){
-                servoPosition = 0;
+                servoPosition = -0.5;
             }
 
             // Send calculated power to wheels
