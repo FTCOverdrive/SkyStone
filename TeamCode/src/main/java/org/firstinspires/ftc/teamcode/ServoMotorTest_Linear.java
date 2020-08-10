@@ -59,7 +59,6 @@ public class ServoMotorTest_Linear extends LinearOpMode {
     private ElapsedTime runtime = new ElapsedTime();
     private DcMotor central;
     private Servo servo1;
-
     @Override
     public void runOpMode() {
         telemetry.addData("Status", "Initialized");
