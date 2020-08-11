@@ -161,6 +161,21 @@ public class BasicTeleOp extends LinearOpMode {
             vFR = -Math.hypot(gamepad1.left_stick_y, gamepad1.left_stick_x);
             vBL = -Math.hypot(gamepad1.left_stick_y, gamepad1.left_stick_x);
         }
+        //perfect strafe
+        if(gamepad1.right_bumper){
+            vFL = 0.5;
+            vFR = -0.5;
+            vBL = -0.5;
+            vBR = 0.5;
+        }
+        if(gamepad1.left_bumper){
+            vFL = -0.5;
+            vFR = 0.5;
+            vBL = 0.5;
+            vBR = -0.5;
+        }
+
+
         // For rotation, we subtract gamepad1.right_stick_x from the right side and added the value to the left
         vFL += gamepad1.right_stick_x;
         vFR -= gamepad1.right_stick_x;
