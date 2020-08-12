@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import java.lang.*;
@@ -17,6 +18,11 @@ public class BasicTeleOp extends LinearOpMode {
     private DcMotor motorFR;
     private DcMotor motorBL;
     private DcMotor motorBR;
+
+    //variables for teaching workshops
+    private ElapsedTime runtime = new ElapsedTime();
+    private DcMotor central;
+    private Servo servo1;
 
     //variables for trig drive
     private double r;
@@ -205,20 +211,65 @@ public class BasicTeleOp extends LinearOpMode {
         //Important for setting wheel reverse to go backward
 
 
-        motorFL = hardwareMap.dcMotor.get("motorFL");
-        motorFR = hardwareMap.dcMotor.get("motorFR");
-        motorBL = hardwareMap.dcMotor.get("motorBL");
-        motorBR = hardwareMap.dcMotor.get("motorBR");
+//        motorFL = hardwareMap.dcMotor.get("motorFL");
+//        motorFR = hardwareMap.dcMotor.get("motorFR");
+//        motorBL = hardwareMap.dcMotor.get("motorBL");
+//        motorBR = hardwareMap.dcMotor.get("motorBR");
+//
+//        telemetry.addLine("Robot is ready");
+//        telemetry.update();
+//
+//        waitForStart();
+//        runtime.reset();
+//        while (opModeIsActive()) {
+//            //method that will run when opmode is active
+//            trigMecRun();
+//
+//
+//        }
 
-        telemetry.addLine("Robot is ready");
+
+
+        telemetry.addData("Status", "Initialized");
         telemetry.update();
 
+        // Initialize the hardware variables. Note that the strings used here as parameters
+        // to 'get' must correspond to the names assigned during the robot configuration
+        // step (using the FTC Robot Controller app on the phone).
+        central  = hardwareMap.get(DcMotor.class, "central");
+        servo1 = hardwareMap.get(Servo.class,"servo1" );
+
+
+
+
+        // Wait for the game to start (driver presses PLAY)
         waitForStart();
         runtime.reset();
+
+        double servoPosition = 0;
+        // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
-            //method that will run when opmode is active
-            trigMecRun();
-        }
+
+
+            double motorPower = -gamepad1.left_stick_y;
+
+            if(gamepad1.dpad_up){
+                servoPosition = 0.5;
+            }
+            if(gamepad2.dpad_down){
+                servoPosition = -0.5;
+            }
+
+            // Send calculated power to wheels
+            central.setPower(motorPower);
+            servo1.setPosition(servoPosition);
+
+
+            // Show the elapsed game time and wheel power.
+            telemetry.addData("Status", "Run Time: " + runtime.toString());
+            telemetry.addData("Motors", "Motor Power:", motorPower);
+            telemetry.addData("Servo", "Servo Position:", servoPosition);
+            telemetry.update();
     }
 
 }
