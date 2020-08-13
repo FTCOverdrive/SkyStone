@@ -87,6 +87,7 @@ public class BasicTeleOp extends LinearOpMode {
         }
         else if(Math.abs(gamepad1.left_stick_y) < 0.1 && gamepad1.left_stick_x < 0){
             rightX += strafeCounter * Math.abs(gamepad1.left_stick_x);
+
         }
 
         //sets the power for each of the motor variables
